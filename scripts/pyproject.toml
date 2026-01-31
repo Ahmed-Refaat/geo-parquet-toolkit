@@ -1,0 +1,20 @@
+[project]
+name = "geoparquet-scripts"
+version = "0.1.0"
+description = ""
+authors = []
+license = "MIT"
+requires-python = ">=3.10"
+
+dependencies = [
+    "black",
+    "click",
+    "geopandas >= 1.0.0",
+    "isort",
+    "jsonschema",
+    "pandas",
+    "pyarrow >= 20.0.0",
+    "numpy >= 2.0.0",
+    "pytest",
+    "shapely >= 2.1.0",
+]
