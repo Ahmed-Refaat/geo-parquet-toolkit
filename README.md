@@ -1,25 +1,58 @@
-# 🗺️ GeoParquet
+# 🛠️ Geo-Parquet Toolkit
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![GitHub stars](https://img.shields.io/github/stars/Ahmed-Refaat/geoparquet?style=social)
+![GitHub stars](https://img.shields.io/github/stars/Ahmed-Refaat/geo-parquet-toolkit?style=social)
 
-> **Efficient geospatial vector data storage built on Apache Parquet for high-performance analytics**
+> **Complete toolkit for efficient geospatial vector data storage using Apache Parquet**
+> 
+> *Specifications • Tools • Libraries • Examples • Best Practices*
+
+---
 
 ## 📖 Table of Contents
 
+- [About the Toolkit](#about-the-toolkit)
 - [What is GeoParquet?](#what-is-geoparquet)
-- [Why Use GeoParquet?](#why-use-geoparquet)
-- [Key Features](#key-features)
+- [Why Use This Toolkit?](#why-use-this-toolkit)
+- [Toolkit Components](#toolkit-components)
 - [Quick Start](#quick-start)
 - [Format Specification](#format-specification)
-- [Use Cases](#use-cases)
+- [Tools & Utilities](#tools--utilities)
 - [Implementation Examples](#implementation-examples)
-- [Tools & Libraries](#tools--libraries)
-- [Performance Comparison](#performance-comparison)
-- [Technical Details](#technical-details)
+- [Use Cases](#use-cases)
+- [Performance Benchmarks](#performance-benchmarks)
+- [Best Practices](#best-practices)
 - [Contributing](#contributing)
 - [License](#license)
 - [About the Maintainer](#about-the-maintainer)
+
+---
+
+## 🎯 About the Toolkit
+
+**Geo-Parquet Toolkit** is a comprehensive resource for working with geospatial vector data in Apache Parquet format. This toolkit provides everything you need to:
+
+✅ **Understand** the GeoParquet specification  
+✅ **Convert** existing geospatial data to GeoParquet  
+✅ **Validate** GeoParquet files for compliance  
+✅ **Optimize** storage and query performance  
+✅ **Integrate** with modern data pipelines  
+✅ **Learn** through real-world examples  
+
+### What Makes This a Toolkit?
+
+Unlike a simple specification document, this toolkit includes:
+
+- 📚 **Complete Specification** - Full format documentation
+- 🔧 **Conversion Tools** - Scripts to convert various formats
+- ✅ **Validation Utilities** - Ensure compliance with standards
+- 📊 **Example Datasets** - Real-world sample files
+- 💻 **Code Libraries** - Ready-to-use implementations
+- 📈 **Performance Scripts** - Benchmark and optimize
+- 🎓 **Learning Resources** - Tutorials and guides
+- 🏗️ **Best Practices** - Production-ready patterns
+
+---
 
 ## 🤔 What is GeoParquet?
 
@@ -42,217 +75,194 @@ GeoParquet leverages Apache Parquet's columnar format to provide:
 - ✅ **Analytics-ready** - Native support in modern data tools
 - ✅ **Interoperable** - Standard format, wide tool support
 
-## 🎯 Why Use GeoParquet?
+---
 
-### Benefits Over Traditional Formats
+## 💡 Why Use This Toolkit?
 
-| Feature | Shapefile | GeoJSON | GeoPackage | **GeoParquet** |
-|---------|-----------|---------|------------|----------------|
-| File Size | Large | Very Large | Medium | **Small** |
-| Compression | Poor | None | Good | **Excellent** |
-| Column Selection | No | No | No | **Yes** |
-| Cloud Optimized | No | No | No | **Yes** |
-| Spatial Index | Limited | No | Yes | **Yes** |
-| Multiple Geom Columns | No | No | Yes | **Yes** |
-| Big Data Tools Support | Poor | Poor | Poor | **Excellent** |
-| Streaming | No | Partial | No | **Yes** |
+### For Data Engineers
+- **Convert pipelines** from legacy formats to GeoParquet
+- **Optimize storage** costs by 80%+ in cloud environments
+- **Speed up queries** by 10-100x with columnar access
+- **Integrate easily** with Spark, DuckDB, BigQuery
 
-### Real-World Impact
+### For GIS Analysts
+- **Process larger datasets** without memory constraints
+- **Share data efficiently** with smaller file sizes
+- **Access data remotely** without full downloads
+- **Use familiar tools** (QGIS, ArcGIS Pro, GeoPandas)
 
-**File Size Example:**
-- GeoJSON: 1.2 GB
-- Shapefile: 850 MB
-- GeoPackage: 420 MB
-- **GeoParquet: 180 MB** ⚡
+### For Software Developers
+- **Build faster applications** with optimized data access
+- **Scale to billions** of features seamlessly
+- **Deploy serverless** with cloud-native format
+- **Reduce infrastructure** costs significantly
 
-**Query Speed Example** (filtering 100M records):
-- GeoJSON: 45 seconds
-- GeoPackage: 12 seconds
-- **GeoParquet: 2 seconds** ⚡
+### For Researchers
+- **Analyze massive datasets** on standard hardware
+- **Reproduce results** with standardized format
+- **Share data openly** with efficient distribution
+- **Collaborate easily** with cross-platform support
 
-## ✨ Key Features
+---
 
-### 1. **Columnar Storage**
-Data organized by columns instead of rows, enabling:
-- Read only the attributes you need
-- Skip irrelevant data blocks
-- Efficient compression per column
-- Optimized for analytical queries
+## 🧰 Toolkit Components
 
-### 2. **Excellent Compression**
-Multiple compression algorithms supported:
-- **Snappy**: Fast compression/decompression
-- **Gzip**: Better compression ratios
-- **Zstd**: Best balance of speed and size
-- **LZ4**: Ultra-fast decompression
+### 1. **Specification Documents**
+📄 Location: `format-specs/`
 
-Typical compression ratios:
-- Geometries: 5-10x smaller
-- Text attributes: 10-20x smaller
-- Numeric attributes: 2-5x smaller
+- **geoparquet.md** - Complete format specification
+- **schema.json** - JSON schema for validation
+- **RELEASE.md** - Version history and changes
 
-### 3. **Spatial Reference Systems**
-Full CRS support:
-- Multiple spatial reference systems per file
-- Clear default recommendations (EPSG:4326)
-- Proper handling of spherical vs planar coordinates
-- Metadata for each geometry column
+### 2. **Conversion Tools**
+🔧 Location: `scripts/`
 
-### 4. **Multiple Geometry Columns**
-Store multiple geometries per feature:
-- Points, lines, and polygons in one dataset
-- Different representations (e.g., simplified vs detailed)
-- Different coordinate systems
-- Designated primary geometry column
+- **convert_formats.py** - Convert Shapefile/GeoJSON/GPKG to GeoParquet
+- **batch_convert.py** - Batch process multiple files
+- **optimize_parquet.py** - Re-optimize existing GeoParquet files
+- **partition_data.py** - Create partitioned datasets
 
-### 5. **Cloud-Native Design**
-Optimized for cloud storage (S3, GCS, Azure Blob):
-- Efficient partial reads via HTTP range requests
-- Column statistics for query optimization
-- Row group metadata for filtering
-- Compatible with serverless architectures
+### 3. **Validation Utilities**
+✅ Location: `scripts/`
 
-### 6. **Big Data Integration**
-Native support in modern data platforms:
-- Apache Spark
-- Dask
-- DuckDB
-- Apache Arrow
-- Databricks
-- Amazon Athena
-- Google BigQuery
-- Snowflake
+- **validate_geoparquet.py** - Check specification compliance
+- **test_json_schema.py** - Validate metadata structure
+- **check_integrity.py** - Verify data integrity
+
+### 4. **Example Datasets**
+📊 Location: `examples/`
+
+- **example.parquet** - Simple point dataset
+- **example_metadata.json** - Metadata structure example
+- **Various test files** - Different geometry types
+
+### 5. **Test Data**
+🧪 Location: `test_data/`
+
+- Complete test suite covering all geometry types
+- WKB and native encoding examples
+- Validation test cases
+
+### 6. **Code Examples**
+💻 Location: `examples/`
+
+- **example.py** - Python usage examples
+- **example-2.R** - R implementation examples
+- **Integration samples** - Various tool integrations
+
+---
 
 ## 🚀 Quick Start
 
 ### Installation
 
-**Python (GeoPandas):**
+**Install the Toolkit:**
 ```bash
+# Clone the repository
+git clone https://github.com/Ahmed-Refaat/geo-parquet-toolkit.git
+cd geo-parquet-toolkit
+
+# Install Python dependencies
+pip install -r requirements.txt
+```
+
+**Or install libraries separately:**
+```bash
+# Python
 pip install geopandas pyarrow
-```
 
-**Python (DuckDB):**
-```bash
-pip install duckdb
-```
-
-**R:**
-```r
-install.packages("geoarrow")
-install.packages("arrow")
-```
-
-**JavaScript:**
-```bash
-npm install parquetjs-lite geoarrow
-```
-
-### Reading GeoParquet
-
-**Python (GeoPandas):**
-```python
-import geopandas as gpd
-
-# Read from local file
-gdf = gpd.read_parquet('data.parquet')
-
-# Read from cloud (S3, GCS, Azure)
-gdf = gpd.read_parquet('s3://bucket/data.parquet')
-
-# Read specific columns only
-gdf = gpd.read_parquet('data.parquet', columns=['geometry', 'name', 'population'])
-
-# Filter while reading (predicate pushdown)
-gdf = gpd.read_parquet('data.parquet', 
-                        filters=[('population', '>', 1000000)])
-```
-
-**Python (DuckDB):**
-```python
-import duckdb
-
-# Query GeoParquet with SQL
-result = duckdb.query("""
-    SELECT name, population, ST_Area(geometry) as area
-    FROM read_parquet('data.parquet')
-    WHERE population > 1000000
-    ORDER BY population DESC
-""").df()
-```
-
-**R:**
-```r
-library(geoarrow)
-library(arrow)
-
-# Read GeoParquet
-gdf <- read_geoparquet("data.parquet")
-
-# Read from cloud
-gdf <- read_geoparquet("s3://bucket/data.parquet")
-```
-
-### Writing GeoParquet
-
-**Python (GeoPandas):**
-```python
-import geopandas as gpd
-
-# Read any geospatial format
-gdf = gpd.read_file('data.shp')
-
-# Write to GeoParquet
-gdf.to_parquet('output.parquet')
-
-# With compression
-gdf.to_parquet('output.parquet', compression='zstd')
-
-# With partitioning
-gdf.to_parquet('output.parquet', 
-               partition_cols=['country', 'year'])
-```
-
-**Python (Converting GeoJSON):**
-```python
-import geopandas as gpd
-
-# Convert GeoJSON to GeoParquet
-gdf = gpd.read_file('large_file.geojson')
-gdf.to_parquet('large_file.parquet', compression='zstd')
-
-# Result: 10x smaller, much faster to read!
-```
-
-### Validating GeoParquet Files
-
-**Using gpq (Command Line):**
-```bash
-# Install
+# For validation
 pip install gpq
 
-# Validate file
-gpq validate data.parquet
-
-# Show metadata
-gpq describe data.parquet
-
-# Convert to GeoJSON
-gpq convert data.parquet output.geojson
+# For advanced features
+pip install duckdb fastparquet
 ```
+
+### Convert Your First File
 
 **Using Python:**
 ```python
 import geopandas as gpd
-import json
 
-# Read and check metadata
+# Read any geospatial format
+gdf = gpd.read_file('your_data.shp')  # or .geojson, .gpkg, etc.
+
+# Write to GeoParquet
+gdf.to_parquet('output.parquet', compression='zstd')
+
+print("Conversion complete! ✅")
+```
+
+**Using the Toolkit Script:**
+```bash
+# Convert single file
+python scripts/convert_formats.py input.shp output.parquet
+
+# Batch convert directory
+python scripts/batch_convert.py input_folder/ output_folder/
+
+# With optimization
+python scripts/convert_formats.py input.geojson output.parquet --optimize
+```
+
+### Validate GeoParquet File
+
+**Using the Toolkit:**
+```bash
+# Validate file
+python scripts/validate_geoparquet.py data.parquet
+
+# Output:
+# ✅ Valid GeoParquet file
+# Version: 1.1.0
+# Geometry types: Polygon, MultiPolygon
+# CRS: EPSG:4326
+# Features: 10,000
+```
+
+**Using gpq:**
+```bash
+gpq validate data.parquet
+gpq describe data.parquet
+```
+
+### Read GeoParquet
+
+**Python (GeoPandas):**
+```python
+import geopandas as gpd
+
+# Read entire file
 gdf = gpd.read_parquet('data.parquet')
 
-# Access GeoParquet metadata
-metadata = gdf.__geo_interface__
-print(json.dumps(metadata, indent=2))
+# Read specific columns only
+gdf = gpd.read_parquet('data.parquet', 
+                       columns=['geometry', 'name', 'population'])
+
+# Filter while reading (super fast!)
+gdf = gpd.read_parquet('data.parquet',
+                       filters=[('population', '>', 1000000)])
 ```
+
+**Python (DuckDB) - SQL queries:**
+```python
+import duckdb
+
+con = duckdb.connect()
+con.execute("INSTALL spatial; LOAD spatial;")
+
+result = con.execute("""
+    SELECT name, ST_Area(geometry) as area
+    FROM read_parquet('data.parquet')
+    WHERE area > 1000000
+    ORDER BY area DESC
+    LIMIT 10
+""").df()
+
+print(result)
+```
+
+---
 
 ## 📋 Format Specification
 
@@ -263,7 +273,7 @@ The GeoParquet specification defines how geospatial vector data should be stored
 **Key Specification Documents:**
 - **[Stable Specification v1.1.0](https://geoparquet.org/releases/v1.1.0/)**
 - **[JSON Schema](https://geoparquet.org/releases/v1.1.0/schema.json)**
-- **[Development Version](format-specs/geoparquet.md)** (unstable)
+- **[Development Version](format-specs/geoparquet.md)** (in this toolkit)
 
 ### Metadata Structure
 
@@ -291,273 +301,247 @@ GeoParquet stores geospatial metadata in the Parquet file metadata:
 }
 ```
 
-### Geometry Encoding
+### Key Features
 
-**Well-Known Binary (WKB):**
-- Industry standard format
-- Compact binary representation
-- Supported by all GIS tools
-- ISO 19125 standard
+✅ **Columnar Storage** - Efficient analytical queries  
+✅ **Excellent Compression** - 5-10x smaller than GeoJSON  
+✅ **Multiple CRS Support** - Any spatial reference system  
+✅ **Multiple Geometry Columns** - Store different representations  
+✅ **Cloud-Native** - Optimized for remote access  
+✅ **Standards-Based** - ISO WKB encoding  
 
-**Supported Geometry Types:**
-- Point, LineString, Polygon
-- MultiPoint, MultiLineString, MultiPolygon
-- GeometryCollection
-- Point Z, LineString Z, Polygon Z (3D)
-- Point M, LineString M, Polygon M (measured)
+---
 
-### Coordinate Reference Systems
+## 🔧 Tools & Utilities
 
-**Default CRS:** EPSG:4326 (WGS 84)
-- Lon/Lat coordinates
-- Best for interoperability
-- Required for web mapping
+### Included in This Toolkit
 
-**Custom CRS Support:**
-- Any EPSG code
-- PROJ strings
-- WKT2 definitions
-- Per-geometry-column CRS
+#### 1. **Format Converter** (`scripts/convert_formats.py`)
 
-## 💼 Use Cases
+Convert any geospatial format to GeoParquet:
 
-### 1. **Large-Scale Geospatial Analytics**
+```bash
+# Basic conversion
+python scripts/convert_formats.py input.shp output.parquet
 
-**Problem:** Analyzing billions of geographic points
+# With specific compression
+python scripts/convert_formats.py input.geojson output.parquet --compression zstd
+
+# Batch processing
+python scripts/batch_convert.py data/shapefiles/ data/geoparquet/
+```
+
+**Features:**
+- Supports: Shapefile, GeoJSON, GeoPackage, KML, GML, and more
+- Automatic CRS detection and handling
+- Configurable compression algorithms
+- Progress tracking for large files
+- Error handling and logging
+
+#### 2. **Validator** (`scripts/validate_geoparquet.py`)
+
+Ensure your GeoParquet files meet the specification:
+
+```bash
+python scripts/validate_geoparquet.py file.parquet
+
+# Detailed validation
+python scripts/validate_geoparquet.py file.parquet --verbose
+
+# Validate directory
+python scripts/validate_geoparquet.py data/ --recursive
+```
+
+**Checks:**
+- Metadata structure compliance
+- CRS validity
+- Geometry encoding
+- Schema consistency
+- Bounding box accuracy
+
+#### 3. **Optimizer** (`scripts/optimize_parquet.py`)
+
+Re-optimize existing GeoParquet files:
+
+```bash
+python scripts/optimize_parquet.py input.parquet output.parquet
+
+# With different settings
+python scripts/optimize_parquet.py input.parquet output.parquet \
+  --compression zstd \
+  --row-group-size 128MB
+```
+
+**Optimizations:**
+- Recompress with better algorithms
+- Adjust row group sizes
+- Reorder columns for better compression
+- Update to latest specification version
+
+#### 4. **Partitioner** (`scripts/partition_data.py`)
+
+Create partitioned datasets for big data workflows:
+
+```bash
+python scripts/partition_data.py input.parquet output_dir/ \
+  --partition-by country year
+```
+
+**Creates structure:**
+```
+output_dir/
+  country=USA/
+    year=2023/data.parquet
+    year=2024/data.parquet
+  country=Canada/
+    year=2023/data.parquet
+```
+
+### External Tools
+
+#### Command-Line Tools
+
+**gpq** - GeoParquet command-line tool
+```bash
+pip install gpq
+
+gpq validate file.parquet
+gpq describe file.parquet
+gpq convert file.parquet output.geojson
+```
+
+**GDAL/OGR** (v3.5+)
+```bash
+# Convert with ogr2ogr
+ogr2ogr -f Parquet output.parquet input.shp
+
+# Read info
+ogrinfo output.parquet
+```
+
+#### Python Libraries
+
+**GeoPandas** - Primary implementation
+```python
+import geopandas as gpd
+gdf = gpd.read_parquet('data.parquet')
+```
+
+**DuckDB** - SQL queries
 ```python
 import duckdb
-
-# Query 10 billion points efficiently
-result = duckdb.query("""
-    SELECT country, COUNT(*) as point_count,
-           AVG(ST_X(geometry)) as avg_lon,
-           AVG(ST_Y(geometry)) as avg_lat
-    FROM read_parquet('global_points/*.parquet')
-    WHERE timestamp > '2023-01-01'
-    GROUP BY country
-    ORDER BY point_count DESC
-""").df()
+con = duckdb.connect()
+con.execute("SELECT * FROM read_parquet('data.parquet')")
 ```
 
-### 2. **Cloud-Native Geospatial Pipelines**
-
-**Problem:** Processing geospatial data in serverless environments
+**PyArrow** - Low-level access
 ```python
-import geopandas as gpd
-import boto3
-
-# Read from S3, process, write back
-gdf = gpd.read_parquet('s3://data-lake/raw/buildings.parquet')
-
-# Filter and transform
-filtered = gdf[gdf['height'] > 50]
-filtered['area'] = filtered.geometry.area
-
-# Write results back to S3
-filtered.to_parquet('s3://data-lake/processed/tall_buildings.parquet')
+import pyarrow.parquet as pq
+table = pq.read_table('data.parquet')
 ```
 
-### 3. **Data Warehousing**
+#### R Libraries
 
-**Problem:** Integrating geospatial data in modern data warehouses
-```sql
--- Query GeoParquet in BigQuery
-SELECT 
-  city,
-  COUNT(*) as building_count,
-  SUM(ST_AREA(geometry)) as total_area
-FROM `project.dataset.buildings`
-WHERE construction_year > 2020
-GROUP BY city
+```r
+# geoarrow
+library(geoarrow)
+gdf <- read_geoparquet("data.parquet")
+
+# arrow + sf
+library(arrow)
+library(sf)
+gdf <- read_parquet("data.parquet") %>% st_as_sf()
 ```
 
-### 4. **Machine Learning Pipelines**
+---
 
-**Problem:** Training ML models on geospatial features
-```python
-import geopandas as gpd
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
+## 💻 Implementation Examples
 
-# Read training data
-gdf = gpd.read_parquet('training_data.parquet',
-                       columns=['geometry', 'features', 'label'])
-
-# Extract geometric features
-gdf['area'] = gdf.geometry.area
-gdf['perimeter'] = gdf.geometry.length
-gdf['compactness'] = (4 * 3.14159 * gdf['area']) / (gdf['perimeter'] ** 2)
-
-# Train model
-X = gdf[['area', 'perimeter', 'compactness'] + gdf['features'].tolist()]
-y = gdf['label']
-model = RandomForestClassifier()
-model.fit(X, y)
-```
-
-### 5. **Real-Time Dashboards**
-
-**Problem:** Visualizing millions of features in web maps
-```python
-import geopandas as gpd
-import folium
-
-# Read only visible area (bbox filtering)
-gdf = gpd.read_parquet('large_dataset.parquet',
-                       filters=[
-                           ('lon', '>=', -122.5),
-                           ('lon', '<=', -122.3),
-                           ('lat', '>=', 37.7),
-                           ('lat', '<=', 37.8)
-                       ])
-
-# Create map with filtered data
-m = folium.Map(location=[37.75, -122.4])
-gdf.explore(m=m)
-```
-
-### 6. **Data Distribution**
-
-**Problem:** Sharing large geospatial datasets efficiently
-```bash
-# Original GeoJSON: 5.2 GB
-# Compressed GeoParquet: 450 MB
-
-# Convert and upload to cloud
-geopandas.read_file('large.geojson').to_parquet('large.parquet', compression='zstd')
-aws s3 cp large.parquet s3://public-datasets/
-
-# Users can now:
-# 1. Download 10x smaller files
-# 2. Query without downloading (cloud-native)
-# 3. Read only needed columns
-```
-
-## 🔧 Implementation Examples
-
-### Example 1: Converting Multiple Files
+### Example 1: Batch Convert Shapefiles
 
 ```python
 import geopandas as gpd
-import os
 from pathlib import Path
 
-def convert_to_geoparquet(input_dir, output_dir):
+def batch_convert_shapefiles(input_dir, output_dir, compression='zstd'):
     """Convert all shapefiles in a directory to GeoParquet"""
     
-    Path(output_dir).mkdir(exist_ok=True)
+    input_path = Path(input_dir)
+    output_path = Path(output_dir)
+    output_path.mkdir(exist_ok=True)
     
-    for file in Path(input_dir).glob('*.shp'):
-        print(f"Converting {file.name}...")
+    for shapefile in input_path.glob('*.shp'):
+        print(f"Converting {shapefile.name}...")
         
-        # Read shapefile
-        gdf = gpd.read_file(file)
-        
-        # Write to GeoParquet
-        output_file = Path(output_dir) / f"{file.stem}.parquet"
-        gdf.to_parquet(output_file, compression='zstd')
-        
-        # Print size comparison
-        original_size = file.stat().st_size / (1024 * 1024)
-        new_size = output_file.stat().st_size / (1024 * 1024)
-        reduction = ((original_size - new_size) / original_size) * 100
-        
-        print(f"  Original: {original_size:.2f} MB")
-        print(f"  GeoParquet: {new_size:.2f} MB")
-        print(f"  Reduction: {reduction:.1f}%\n")
+        try:
+            # Read shapefile
+            gdf = gpd.read_file(shapefile)
+            
+            # Create output filename
+            output_file = output_path / f"{shapefile.stem}.parquet"
+            
+            # Write to GeoParquet
+            gdf.to_parquet(output_file, compression=compression)
+            
+            # Report size reduction
+            original_size = shapefile.stat().st_size / (1024**2)
+            new_size = output_file.stat().st_size / (1024**2)
+            reduction = ((original_size - new_size) / original_size) * 100
+            
+            print(f"  ✅ Success!")
+            print(f"  Original: {original_size:.2f} MB")
+            print(f"  GeoParquet: {new_size:.2f} MB")
+            print(f"  Reduction: {reduction:.1f}%\n")
+            
+        except Exception as e:
+            print(f"  ❌ Error: {e}\n")
 
 # Usage
-convert_to_geoparquet('data/shapefiles', 'data/geoparquet')
+batch_convert_shapefiles('data/shapefiles', 'data/geoparquet')
 ```
 
-### Example 2: Spatial Queries with DuckDB
+### Example 2: Cloud-Native Processing
 
 ```python
+import geopandas as gpd
 import duckdb
 
-# Create connection with spatial extension
+# Process data directly from S3 without downloading
 con = duckdb.connect()
 con.execute("INSTALL spatial; LOAD spatial;")
+con.execute("INSTALL httpfs; LOAD httpfs;")
 
-# Complex spatial query
+# Query remote GeoParquet file
 query = """
-SELECT 
-    buildings.name,
-    buildings.height,
-    parks.name as nearest_park,
-    ST_Distance(buildings.geometry, parks.geometry) as distance
-FROM 
-    read_parquet('buildings.parquet') buildings
-CROSS JOIN 
-    read_parquet('parks.parquet') parks
-WHERE 
-    ST_DWithin(buildings.geometry, parks.geometry, 1000)
-    AND buildings.height > 100
-QUALIFY 
-    ROW_NUMBER() OVER (PARTITION BY buildings.id ORDER BY distance) = 1
-ORDER BY 
-    buildings.height DESC
-LIMIT 100
+    SELECT 
+        country,
+        COUNT(*) as city_count,
+        AVG(population) as avg_population,
+        SUM(ST_Area(geometry)) as total_area
+    FROM read_parquet('s3://my-bucket/cities.parquet')
+    WHERE population > 100000
+    GROUP BY country
+    ORDER BY city_count DESC
 """
 
 result = con.execute(query).df()
 print(result)
 ```
 
-### Example 3: Partitioned Datasets
-
-```python
-import geopandas as gpd
-import pandas as pd
-
-# Read large dataset
-gdf = gpd.read_file('large_country_data.geojson')
-
-# Add partition columns
-gdf['year'] = pd.to_datetime(gdf['date']).dt.year
-gdf['month'] = pd.to_datetime(gdf['date']).dt.month
-
-# Write partitioned GeoParquet
-gdf.to_parquet(
-    'partitioned_data',
-    partition_cols=['country', 'year', 'month'],
-    compression='zstd'
-)
-
-# Result structure:
-# partitioned_data/
-#   country=USA/
-#     year=2023/
-#       month=1/data.parquet
-#       month=2/data.parquet
-#   country=UK/
-#     year=2023/
-#       month=1/data.parquet
-
-# Read specific partition
-usa_jan_2023 = gpd.read_parquet(
-    'partitioned_data',
-    filters=[
-        ('country', '=', 'USA'),
-        ('year', '=', 2023),
-        ('month', '=', 1)
-    ]
-)
-```
-
-### Example 4: Streaming Large Files
+### Example 3: Streaming Large Files
 
 ```python
 import geopandas as gpd
 import pyarrow.parquet as pq
 
-def process_large_geoparquet(filename, chunk_size=100000):
-    """Process GeoParquet in chunks to avoid memory issues"""
+def process_in_chunks(filename, chunk_size=100000):
+    """Process large GeoParquet files in chunks"""
     
     # Open parquet file
     parquet_file = pq.ParquetFile(filename)
     
-    results = []
+    total_area = 0
+    feature_count = 0
     
     # Process in batches
     for batch in parquet_file.iter_batches(batch_size=chunk_size):
@@ -566,249 +550,300 @@ def process_large_geoparquet(filename, chunk_size=100000):
         
         # Process chunk
         gdf['area'] = gdf.geometry.area
-        large_features = gdf[gdf['area'] > 1000000]
+        total_area += gdf['area'].sum()
+        feature_count += len(gdf)
         
-        results.append(large_features)
+        print(f"Processed {feature_count:,} features...")
     
-    # Combine results
-    final_result = gpd.GeoDataFrame(pd.concat(results, ignore_index=True))
-    return final_result
+    avg_area = total_area / feature_count
+    print(f"\nTotal features: {feature_count:,}")
+    print(f"Average area: {avg_area:.2f}")
+    
+    return total_area, feature_count
 
 # Process 10GB file without loading all into memory
-result = process_large_geoparquet('huge_dataset.parquet')
+process_in_chunks('huge_dataset.parquet')
 ```
 
-## 🛠️ Tools & Libraries
+### Example 4: Partitioned Dataset Creation
 
-### Python Ecosystem
+```python
+import geopandas as gpd
+import pandas as pd
 
-**GeoPandas** (Primary implementation)
-```bash
-pip install geopandas pyarrow
-```
-- Native GeoParquet support
-- Read/write operations
-- Integration with Pandas
+# Read large dataset
+gdf = gpd.read_file('large_dataset.geojson')
 
-**DuckDB** (SQL queries)
-```bash
-pip install duckdb
-```
-- Fast SQL queries on GeoParquet
-- Spatial functions
-- In-process database
+# Add partition columns
+gdf['year'] = pd.to_datetime(gdf['date']).dt.year
+gdf['month'] = pd.to_datetime(gdf['date']).dt.month
+gdf['country'] = gdf['location'].str[:2]  # Extract country code
 
-**gpq** (CLI tool)
-```bash
-pip install gpq
-```
-- Validate GeoParquet files
-- Convert between formats
-- Inspect metadata
+# Write partitioned GeoParquet
+gdf.to_parquet(
+    'partitioned_data',
+    partition_cols=['country', 'year', 'month'],
+    compression='zstd',
+    engine='pyarrow'
+)
 
-**GDAL** (v3.5+)
-```bash
-# Read/write with ogr2ogr
-ogr2ogr output.parquet input.shp -f Parquet
-ogr2ogr output.geojson input.parquet
-```
+# Result structure:
+# partitioned_data/
+#   country=US/year=2023/month=01/data.parquet
+#   country=US/year=2023/month=02/data.parquet
+#   country=CA/year=2023/month=01/data.parquet
+#   ...
 
-### R Ecosystem
-
-**geoarrow**
-```r
-install.packages("geoarrow")
-library(geoarrow)
-
-gdf <- read_geoparquet("data.parquet")
+# Read specific partition (super fast!)
+usa_2023_jan = gpd.read_parquet(
+    'partitioned_data',
+    filters=[
+        ('country', '=', 'US'),
+        ('year', '=', 2023),
+        ('month', '=', 1)
+    ]
+)
 ```
 
-**sf + arrow**
-```r
-install.packages("sf")
-install.packages("arrow")
+### Example 5: Data Quality Validation
 
-library(sf)
-library(arrow)
+```python
+import geopandas as gpd
+import json
 
-gdf <- read_parquet("data.parquet") %>% st_as_sf()
+def validate_geoparquet_quality(filename):
+    """Comprehensive validation of GeoParquet file"""
+    
+    print(f"Validating: {filename}\n")
+    
+    # Read file
+    gdf = gpd.read_parquet(filename)
+    
+    # Check 1: Metadata
+    print("📋 Metadata Check:")
+    try:
+        metadata = json.loads(gdf._geometry_column_name)
+        print("  ✅ GeoParquet metadata present")
+    except:
+        print("  ⚠️ Warning: No GeoParquet metadata")
+    
+    # Check 2: Geometry validity
+    print("\n🗺️ Geometry Check:")
+    invalid = ~gdf.geometry.is_valid
+    if invalid.sum() == 0:
+        print(f"  ✅ All {len(gdf)} geometries valid")
+    else:
+        print(f"  ❌ {invalid.sum()} invalid geometries found")
+    
+    # Check 3: CRS
+    print("\n🌍 CRS Check:")
+    if gdf.crs:
+        print(f"  ✅ CRS: {gdf.crs}")
+    else:
+        print("  ⚠️ Warning: No CRS defined")
+    
+    # Check 4: Bounds
+    print("\n📏 Bounds Check:")
+    bounds = gdf.total_bounds
+    print(f"  MinX: {bounds[0]:.6f}")
+    print(f"  MinY: {bounds[1]:.6f}")
+    print(f"  MaxX: {bounds[2]:.6f}")
+    print(f"  MaxY: {bounds[3]:.6f}")
+    
+    # Check 5: Geometry types
+    print("\n🔷 Geometry Types:")
+    geom_types = gdf.geometry.type.value_counts()
+    for geom_type, count in geom_types.items():
+        print(f"  {geom_type}: {count}")
+    
+    # Check 6: File size
+    print("\n💾 File Size:")
+    import os
+    size_mb = os.path.getsize(filename) / (1024**2)
+    print(f"  {size_mb:.2f} MB")
+    
+    print("\n✅ Validation complete!")
+
+# Usage
+validate_geoparquet_quality('data.parquet')
 ```
 
-### JavaScript/TypeScript
+---
 
-**parquetjs**
-```bash
-npm install parquetjs
+## 💼 Use Cases
+
+### 1. **Large-Scale Analytics**
+- Analyzing billions of geographic points
+- Fast aggregations and filtering
+- Integration with big data tools
+
+### 2. **Cloud Data Lakes**
+- Store geospatial data in S3/GCS/Azure
+- Query without downloading
+- Serverless processing
+
+### 3. **Data Warehousing**
+- BigQuery, Snowflake, Databricks integration
+- SQL queries on geospatial data
+- Join spatial with business data
+
+### 4. **Machine Learning**
+- Feature engineering pipelines
+- Training data storage
+- Efficient data loading
+
+### 5. **Real-Time Dashboards**
+- Fast data loading for visualizations
+- Filtered queries for map views
+- Responsive web applications
+
+### 6. **Data Distribution**
+- Share datasets efficiently
+- Reduce download sizes
+- Cloud-native access
+
+---
+
+## 📊 Performance Benchmarks
+
+### File Size Comparison
+
+**Dataset: 1 Million Building Polygons**
+
+| Format | Size | Reduction |
+|--------|------|-----------|
+| GeoJSON | 1.2 GB | - |
+| Shapefile | 850 MB | 29% |
+| GeoPackage | 420 MB | 65% |
+| **GeoParquet (snappy)** | **180 MB** | **85%** |
+| **GeoParquet (zstd)** | **120 MB** | **90%** |
+
+### Query Performance
+
+**Operation: Filter 100M rows by attribute**
+
+| Format | Time | Speed |
+|--------|------|-------|
+| GeoJSON | 45s | 1x |
+| GeoPackage | 12s | 3.8x |
+| **GeoParquet** | **2s** | **22.5x** |
+
+### Cloud Performance
+
+**Reading 100 columns from 1B rows on S3:**
+
+| Format | Data Transfer | Time | Cost |
+|--------|---------------|------|------|
+| CSV/GeoJSON | 50 GB | 10 min | $5.00 |
+| **GeoParquet (1 col)** | **500 MB** | **15s** | **$0.05** |
+
+---
+
+## 🎓 Best Practices
+
+### 1. **Choose the Right Compression**
+
+```python
+# For frequently accessed data (speed priority)
+gdf.to_parquet('data.parquet', compression='snappy')
+
+# For archival/cloud storage (size priority)
+gdf.to_parquet('data.parquet', compression='zstd')
+
+# For streaming applications (ultra-fast decompression)
+gdf.to_parquet('data.parquet', compression='lz4')
 ```
 
-**Apache Arrow JS**
-```bash
-npm install apache-arrow
+### 2. **Optimize Row Group Size**
+
+```python
+# For analytical queries (larger row groups)
+gdf.to_parquet('data.parquet', row_group_size=128*1024*1024)  # 128MB
+
+# For point queries (smaller row groups)
+gdf.to_parquet('data.parquet', row_group_size=16*1024*1024)   # 16MB
 ```
 
-### Cloud Platforms
+### 3. **Use Partitioning for Large Datasets**
 
-**Amazon Athena**
-- Native GeoParquet support
-- SQL queries on S3 data
+```python
+# Partition by frequently filtered columns
+gdf.to_parquet('data', partition_cols=['country', 'year'])
 
-**Google BigQuery**
-- Import GeoParquet files
-- GIS functions available
-
-**Databricks**
-- Native support via Spark
-- Optimized for large-scale processing
-
-**Snowflake**
-- Load GeoParquet files
-- Geospatial functions
-
-## 📊 Performance Comparison
-
-### Benchmark: 1 Million Building Polygons
-
-| Format | File Size | Write Time | Read Time | Query Time |
-|--------|-----------|------------|-----------|------------|
-| GeoJSON | 1.2 GB | 45s | 12s | 8s |
-| Shapefile | 850 MB | 30s | 8s | 6s |
-| GeoPackage | 420 MB | 25s | 6s | 4s |
-| **GeoParquet (snappy)** | **180 MB** | **15s** | **2s** | **0.5s** |
-| **GeoParquet (zstd)** | **120 MB** | **20s** | **2.5s** | **0.5s** |
-
-### Cloud Performance (S3)
-
-Reading 100 columns from 1 billion rows:
-
-| Operation | Shapefile | GeoPackage | GeoParquet |
-|-----------|-----------|------------|------------|
-| Select 1 column | Must read all | Must read all | **Read 1 column** |
-| Data transferred | 50 GB | 50 GB | **500 MB** |
-| Query time | 10 min | 8 min | **15 seconds** |
-| Cost (AWS) | $5.00 | $5.00 | **$0.05** |
-
-## 🔬 Technical Details
-
-### Parquet File Structure
-
-```
-┌─────────────────────────────┐
-│   File Metadata             │
-│   - Schema                  │
-│   - GeoParquet metadata     │
-└─────────────────────────────┘
-         │
-         ├─ Row Group 1
-         │  ├─ Column: id (int64)
-         │  ├─ Column: name (string)
-         │  ├─ Column: geometry (binary/WKB)
-         │  └─ Column: area (float64)
-         │
-         ├─ Row Group 2
-         │  ├─ Column: id (int64)
-         │  ├─ Column: name (string)
-         │  ├─ Column: geometry (binary/WKB)
-         │  └─ Column: area (float64)
-         │
-         └─ ... more row groups
+# Enables fast queries like:
+# SELECT * FROM data WHERE country='USA' AND year=2023
 ```
 
-### Row Groups
+### 4. **Column Selection**
 
-- Default size: 64-128 MB
-- Enable efficient filtering
-- Contain min/max statistics
-- Independently compressed
+```python
+# Only read columns you need (huge performance boost!)
+gdf = gpd.read_parquet('data.parquet', 
+                       columns=['geometry', 'name', 'population'])
+```
 
-### Column Statistics
+### 5. **Predicate Pushdown**
 
-Each column chunk stores:
-- Min/max values
-- Null count
-- Distinct count (optional)
-- Enables predicate pushdown
+```python
+# Filter while reading (don't load filtered-out data)
+gdf = gpd.read_parquet('data.parquet',
+                       filters=[('population', '>', 1000000)])
+```
 
-### Compression Algorithms
+### 6. **CRS Standardization**
 
-**Snappy** (Default)
-- Fast compression/decompression
-- Moderate compression ratio (3-5x)
-- Good for: frequently accessed data
+```python
+# Use EPSG:4326 for maximum interoperability
+gdf = gdf.to_crs('EPSG:4326')
+gdf.to_parquet('data.parquet')
+```
 
-**Gzip**
-- Slower but better compression (5-10x)
-- Universal compatibility
-- Good for: archival, infrequent access
-
-**Zstandard (Zstd)**
-- Best balance (5-8x compression)
-- Fast decompression
-- Good for: general use, cloud storage
-
-**LZ4**
-- Fastest decompression
-- Lower compression ratio (2-4x)
-- Good for: real-time processing
-
-### Encoding Schemes
-
-**Geometry (WKB)**
-- Binary encoding
-- Dictionary encoding for repeated geometries
-- Delta encoding for coordinate differences
-
-**Strings**
-- Dictionary encoding
-- RLE (Run Length Encoding)
-- Delta length encoding
-
-**Numbers**
-- Delta encoding
-- Bit-packing
-- Dictionary encoding
+---
 
 ## 🤝 Contributing
 
-We welcome contributions to improve the GeoParquet specification and implementations!
+We welcome contributions to improve this toolkit!
 
 ### Ways to Contribute
 
-1. **Report Issues**
-   - Bug reports
-   - Performance problems
-   - Documentation improvements
+1. **Add New Tools**
+   - Conversion utilities
+   - Validation scripts
+   - Optimization tools
 
-2. **Submit Pull Requests**
-   - Specification enhancements
-   - Code examples
-   - Documentation updates
+2. **Improve Documentation**
+   - Fix typos
+   - Add examples
+   - Create tutorials
 
-3. **Create Implementations**
-   - New language bindings
-   - Tool integrations
-   - Library support
+3. **Submit Examples**
+   - Real-world use cases
+   - Integration patterns
+   - Performance optimizations
 
-4. **Share Use Cases**
-   - Application examples
-   - Performance benchmarks
-   - Best practices
+4. **Report Issues**
+   - Bugs in tools
+   - Documentation errors
+   - Feature requests
 
 ### Development Setup
 
 ```bash
 # Clone repository
-git clone https://github.com/Ahmed-Refaat/geoparquet.git
-cd geoparquet
+git clone https://github.com/Ahmed-Refaat/geo-parquet-toolkit.git
+cd geo-parquet-toolkit
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Run validation
-python scripts/validate.py
-
 # Run tests
 pytest tests/
+
+# Run validation
+python scripts/validate_geoparquet.py test_data/
 ```
+
+---
 
 ## 📄 License
 
@@ -816,31 +851,74 @@ This project is licensed under the **Apache License 2.0** - see the [LICENSE](LI
 
 **Copyright 2026 Ahmed Refaat**
 
+### What You Can Do
+
+✅ Commercial use  
+✅ Modification  
+✅ Distribution  
+✅ Patent use  
+✅ Private use  
+
+### What You Must Do
+
+⚠️ Include license in distributions  
+⚠️ State changes made  
+⚠️ Include copyright notice  
+
+---
+
 ## 👤 About the Maintainer
 
 **Ahmed Refaat**
 
-Geospatial data engineer and open-source contributor specializing in cloud-native geospatial solutions, big data processing, and modern GIS infrastructure. Passionate about making geospatial data more accessible and efficient through open standards and tools.
+Geospatial data engineer and open-source contributor specializing in cloud-native geospatial solutions, big data processing, and modern GIS infrastructure. Creator of multiple geospatial tools and datasets focused on making spatial data more accessible and efficient.
 
 ### Expertise
+
 - 🌍 **Geospatial Technologies**: GIS, Remote Sensing, Spatial Analysis
-- ☁️ **Cloud Platforms**: AWS, Google Cloud, Azure
+- ☁️ **Cloud Platforms**: AWS, Google Cloud, Azure  
 - 📊 **Big Data**: Apache Spark, DuckDB, Data Warehousing
 - 🗺️ **Web Mapping**: Leaflet, Mapbox, Google Maps
-- 🛰️ **Earth Observation**: Satellite imagery processing, Google Earth Engine
+- 🛰️ **Earth Observation**: Satellite imagery, Google Earth Engine
 - 🐍 **Programming**: Python, JavaScript, SQL, R
 
-### Projects
-- **Earth Data Hub** - Comprehensive catalog of Google Earth Engine datasets
-- **GeoParquet** - Efficient geospatial data format specification
-- **Geospatial Analytics Tools** - Various open-source GIS utilities
+### Featured Projects
+
+- **[Earth Data Hub](https://github.com/Ahmed-Refaat/earth-data-hub)** - *Your Gateway to Global Geospatial Intelligence*
+  - Comprehensive catalog of Google Earth Engine datasets
+  - 1,000+ curated geospatial datasets
+  - Community-driven data commons
+
+- **[Geo-Parquet Toolkit](https://github.com/Ahmed-Refaat/geo-parquet-toolkit)** - *Complete geospatial Parquet toolkit*
+  - Format specifications and tools
+  - Conversion and validation utilities
+  - Performance optimization guides
+
+### Philosophy
+
+> "Making geospatial data faster, smaller, and more accessible through open standards and cloud-native technologies"
 
 ### Connect
-- **GitHub**: [Ahmed-Refaat](https://github.com/Ahmed-Refaat)
-- **Repository**: [geoparquet](https://github.com/Ahmed-Refaat/geoparquet)
+
+- **GitHub**: [@Ahmed-Refaat](https://github.com/Ahmed-Refaat)
+- **Repository**: [geo-parquet-toolkit](https://github.com/Ahmed-Refaat/geo-parquet-toolkit)
 
 ---
 
-**Making geospatial data faster, smaller, and more accessible** 🚀
+## 🌟 Show Your Support
+
+If you find this toolkit useful:
+
+- ⭐ **Star this repository**
+- 🔗 **Share with your network**
+- 🐛 **Report issues** to help improve
+- 💡 **Suggest features** for future releases
+- 🤝 **Contribute** tools and examples
+
+---
+
+**Making geospatial data storage efficient, accessible, and cloud-native** 🚀
+
+*Geo-Parquet Toolkit - Complete solution for modern geospatial data*
 
 *Last Updated: January 2026*
